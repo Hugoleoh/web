@@ -20,6 +20,10 @@ export default {
     async fetchRegister(user) {
       await this.$store.dispatch("register", user);
     },
+    fetchLogout() {
+      this.$store.dispatch("logout");
+      this.$router.replace("/");
+    },
   },
 };
 </script>

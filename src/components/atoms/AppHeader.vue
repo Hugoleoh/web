@@ -2,7 +2,7 @@
   <!--   <v-navigation-drawer v-model="sidebar" app>
       <v-list>
         <v-list-tile
-          v-for="item in menuItems"
+          v-for="item in unloggedMenuItems"
           :key="item.title"
           :to="item.path">
           <v-list-tile-action>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import Auth from "@/modules/Auth";
 export default {
   name: "AppHeader",
   props: ["hasSidebar"],
@@ -49,12 +50,27 @@ export default {
     return {
       appTitle: "Pollar",
       sidebar: false,
-      menuItems: [
-        { title: "Home", path: "/", icon: "home" },
-        { title: "Registre-se", path: "/register", icon: "face" },
-        { title: "Login", path: "/login", icon: "lock_open" },
+      unloggedMenuItems: [
+        { title: "Home", path: "/", icon: "mdi-home" },
+        { title: "Login", path: "/login", icon: "mdi-lock_open" },
+        { title: "Registre-se", path: "/register", icon: "mdi-face" },
+      ],
+      loggedMenuItems: [
+        {
+          title: "Dashboard",
+          path: "/dashboard",
+          icon: "mdi-view-dashboard-variant",
+        },
+        { title: "Nome do usuário", path: "/register", icon: "mdi-account" },
       ],
     };
+  },
+  computed: {
+    menuItems() {
+      return Auth.isUserAuthenticated()
+        ? this.loggedMenuItems
+        : this.unloggedMenuItems;
+    },
   },
 };
 </script>
