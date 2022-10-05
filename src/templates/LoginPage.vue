@@ -150,6 +150,7 @@ export default {
       }
       this.isLoading = false;
       this.clear();
+      this.$router.replace("/dashboard");
     },
     clear() {
       this.v$.$reset();

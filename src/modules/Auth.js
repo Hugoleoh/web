@@ -4,9 +4,11 @@ class Auth {
    *
    * @param {string} token
    */
-  static authenticateUser(token, createdAt) {
+  static authenticateUser(token, userId, createdAt, expiresIn) {
+    const expirationDate = +new Date(createdAt).getTime() + expiresIn;
     localStorage.setItem("token", token);
-    localStorage.setItem("createdAt", createdAt);
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("tokenExpiration", expirationDate);
   }
 
   /**
@@ -15,7 +17,9 @@ class Auth {
    * @returns {boolean}
    */
   static isUserAuthenticated() {
-    return localStorage.getItem("token") !== null;
+    return (
+      localStorage.getItem("token") !== null && localStorage.getItem("userId")
+    );
   }
 
   /**
@@ -24,7 +28,8 @@ class Auth {
    */
   static deauthenticateUser() {
     localStorage.removeItem("token");
-    localStorage.removeItem("createdAt");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("tokenExpiration");
   }
   /**
    * Get a token value.
@@ -36,16 +41,16 @@ class Auth {
     return localStorage.getItem("token");
   }
 
-  static getTime() {
-    return localStorage.getItem("createdAt");
+  static getTokenExpiration() {
+    return localStorage.getItem("tokenExpiration");
+  }
+
+  static getUserId() {
+    return localStorage.getItem("userId");
   }
 
   static getNowTime() {
-    return new Date();
-  }
-
-  static getOpenTime() {
-    return this.getNowTime().getTime() - new Date(this.getTime()).getTime();
+    return new Date().getTime();
   }
 }
 

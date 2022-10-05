@@ -45,6 +45,7 @@ export default {
       this.color = "transparent";
       this.flat = true;
     }
+    this.$store.dispatch("tryAutoLogin");
   },
 
   watch: {
@@ -56,6 +57,16 @@ export default {
         this.color = "transparent";
         this.flat = true;
       }
+    },
+    confirmAutoLogout(curValue, oldValue) {
+      if (curValue && curValue !== oldValue) {
+        this.$router.replace("/");
+      }
+    },
+  },
+  computed: {
+    confirmAutoLogout() {
+      return this.$store.getters.confirmAutoLogout;
     },
   },
 
