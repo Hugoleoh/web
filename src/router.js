@@ -39,6 +39,21 @@ const router = createRouter({
         import(/* webpackChunkName: "about" */ "./templates/AppDashboard.vue"),
       meta: { authRequired: true },
     },
+    {
+      path: "/poll",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./templates/PollDashboard.vue"),
+      children: [
+        {
+          path: "create",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/NewPoll.vue"
+            ),
+        },
+      ],
+      meta: { authRequired: true },
+    },
     { path: "/:pathMatch(.*)*", redirect: "/404" },
   ],
 });
@@ -48,6 +63,8 @@ router.beforeEach(function (to, from, next) {
     next("/login");
   } else if (to.meta.noAuth && store.getters.isAuthenticated) {
     next("/dashboard");
+  } else if (to.fullPath === "/poll") {
+    next("/poll/create");
   } else {
     next();
   }

@@ -19,11 +19,11 @@
             </v-layout>
           </v-card-title>
           <v-divider></v-divider>
-          <v-card-text>
-            <p class="mb-2">
-              Faça login com seu nome de usuário ou email e senha:
-            </p>
-            <v-form ref="form" lazy-validation>
+          <v-form ref="form" @submit.prevent="login" lazy-validation>
+            <v-card-text>
+              <p class="mb-2">
+                Faça login com seu nome de usuário ou email e senha:
+              </p>
               <v-text-field
                 v-model.trim="v$.credentials.user.$model"
                 :error-messages="userErrors"
@@ -48,24 +48,24 @@
                 @input="v$.credentials.password.$touch()"
                 @blur="v$.credentials.password.$touch()"
               ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-btn color="#283e79" flat> Esqueceu a senha? </v-btn>
-            <v-spacer></v-spacer>
-            <span class="error-text" v-if="!!error">{{ error }}</span>
-            <v-btn
-              elevation="2"
-              class="btn-submit"
-              color="white"
-              height="50"
-              :disabled="invalid"
-              @click="submit"
-            >
-              Entrar
-            </v-btn>
-          </v-card-actions>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-btn color="#283e79" flat> Esqueceu a senha? </v-btn>
+              <v-spacer></v-spacer>
+              <span class="error-text" v-if="!!error">{{ error }}</span>
+              <v-btn
+                elevation="2"
+                class="btn-submit"
+                color="white"
+                height="50"
+                :disabled="invalid"
+                type="submit"
+              >
+                Entrar
+              </v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-col>
     </v-row>
@@ -140,7 +140,7 @@ export default {
     },
   },
   methods: {
-    async submit() {
+    async login() {
       this.v$.$touch();
       this.isLoading = true;
       try {

@@ -1,5 +1,5 @@
 export default {
-  setUserProfile(state, payload) {
-    state.user_profile = payload.user;
+  setLoggedUser(state, payload) {
+    state.loggedUser = payload.user;
   },
 };

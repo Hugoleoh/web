@@ -46,7 +46,7 @@ class Auth {
   }
 
   static getUserId() {
-    return localStorage.getItem("userId");
+    return parseInt(localStorage.getItem("userId"));
   }
 
   static getNowTime() {
