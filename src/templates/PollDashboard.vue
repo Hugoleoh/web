@@ -1,11 +1,14 @@
 <template>
-  <AppHeader />
+  <div>
+    <PollDashboardHeader />
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import AppHeader from "@/components/atoms/AppHeader.vue";
+import PollDashboardHeader from "@/components/atoms/PollDashboardHeader.vue";
 export default {
-  components: { AppHeader },
+  components: { PollDashboardHeader },
 };
 </script>
 

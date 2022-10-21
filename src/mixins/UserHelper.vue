@@ -1,19 +1,17 @@
 <script>
 import { mapGetters } from "vuex";
-
-//import Auth from "../modules/Auth.js";
+import Auth from "@/modules/Auth.js";
 export default {
   computed: {
     ...mapGetters({
       loggedUserId: "userId",
+      loggedUser: "loggedUser",
     }),
+    isLoggedUser() {
+      return Auth.isUserAuthenticated();
+    },
   },
   methods: {
-    /* ...mapActions([
-      "fetchUserProfile",
-      "fetchLogin",
-      "fetchRegister",
-    ]), */
     async fetchLogin(credentials) {
       await this.$store.dispatch("login", credentials);
     },
@@ -23,6 +21,11 @@ export default {
     fetchLogout() {
       this.$store.dispatch("logout");
       this.$router.replace("/");
+    },
+    async fetchLoggedUser() {
+      await this.$store.dispatch("fetchUserProfile", {
+        userId: this.loggedUserId,
+      });
     },
   },
 };

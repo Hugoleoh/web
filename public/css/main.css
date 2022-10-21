@@ -24,3 +24,11 @@ v-card {
   line-height: 12px;
   padding-right: 12px;
 }
+
+.small-text {
+  font-size: 11px;
+}
+
+.justify-center {
+  justify-content: center;
+}

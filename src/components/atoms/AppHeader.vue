@@ -1,18 +1,4 @@
 <template>
-  <!--   <v-navigation-drawer v-model="sidebar" app>
-      <v-list>
-        <v-list-tile
-          v-for="item in unloggedMenuItems"
-          :key="item.title"
-          :to="item.path">
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer> -->
-
   <v-toolbar class="nav-bar" app>
     <span class="hidden-sm-and-up">
       <v-toolbar-side-icon @click="sidebar = !sidebar"> </v-toolbar-side-icon>
@@ -34,45 +20,96 @@
         :key="item.title"
         :to="item.path"
       >
-        <v-icon left dark>{{ item.icon }}</v-icon>
+        <v-icon :class="item.iconClass" left dark>{{ item.icon }}</v-icon>
         {{ item.title }}
       </v-btn>
+      <v-menu
+        transition="slide-y-transition"
+        bottom
+        offset-y
+        v-if="isLoggedUser"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="text-white"
+            v-bind="attrs"
+            v-on="on"
+            @click="logout"
+            flat
+          >
+            <v-icon left dark class="btn-icon">mdi-account</v-icon>
+            {{ userFirstName }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>Meu Perfil</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>Sair</v-list-item-title>
+            <v-list-item-action>
+              <v-btn flat @click="logout"></v-btn>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
-import Auth from "@/modules/Auth";
+import UserHelperVue from "@/mixins/UserHelper.vue";
 export default {
   name: "AppHeader",
+  mixins: [UserHelperVue],
   props: ["hasSidebar"],
   data() {
     return {
       appTitle: "Pollar",
       sidebar: false,
       unloggedMenuItems: [
-        { title: "Home", path: "/", icon: "mdi-home" },
-        { title: "Login", path: "/login", icon: "mdi-lock_open" },
-        { title: "Registre-se", path: "/register", icon: "mdi-face" },
+        { title: "Home", path: "/", icon: "mdi-home", iconClass: "btn-icon" },
+        {
+          title: "Login",
+          path: "/login",
+          icon: "mdi-lock-open",
+          iconClass: "btn-icon",
+        },
+        {
+          title: "Registre-se",
+          path: "/register",
+          icon: "mdi-face",
+          iconClass: "btn-icon",
+        },
       ],
       loggedMenuItems: [
         {
           title: "Dashboard",
           path: "/dashboard",
           icon: "mdi-view-dashboard-variant",
+          iconClass: "btn-icon",
         },
-        { title: "Nome do usuário", path: "/register", icon: "mdi-account" },
       ],
     };
   },
+  methods: {
+    logout() {
+      this.fetchLogout();
+    },
+  },
   computed: {
     menuItems() {
-      return Auth.isUserAuthenticated()
-        ? this.loggedMenuItems
-        : this.unloggedMenuItems;
+      return this.isLoggedUser ? this.loggedMenuItems : this.unloggedMenuItems;
+    },
+    userFirstName() {
+      return this.loggedUser.first_name;
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.btn-icon {
+  padding-right: 0.5rem;
+}
+</style>

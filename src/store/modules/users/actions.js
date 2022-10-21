@@ -1,15 +1,14 @@
 import Global from "@/constants/Global.js";
+import Auth from "@/modules/Auth";
 export default {
-  async getProfile(context) {
-    const userId = context.rootGetters.userId;
-    const token = context.rootGetters.token;
+  async fetchUserProfile(context, payload) {
     const response = await fetch(
-      Global.getServerDomain() + `/users/profile/${userId}`,
+      Global.getServerDomain() + `/users/profile/${payload.userId}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + Auth.getToken(),
         },
       }
     );
@@ -17,10 +16,10 @@ export default {
 
     if (!response.ok) {
       const error = new Error(
-        responseData.message || "Failed to fetch profile"
+        responseData.message || "Unable to fetch user's profile"
       );
       throw error;
     }
-    context.commit("setUserProfile", responseData);
+    context.commit("setLoggedUser", responseData);
   },
 };
