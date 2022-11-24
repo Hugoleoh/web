@@ -5,4 +5,7 @@ export default {
   setUserPolls(state, payload) {
     state.userPolls = payload.polls;
   },
+  setSelectedPoll(state, payload) {
+    state.selectedPoll = payload;
+  },
 };

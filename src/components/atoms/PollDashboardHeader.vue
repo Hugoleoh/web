@@ -38,7 +38,7 @@ import UserHelperVue from "@/mixins/UserHelper.vue";
 export default {
   name: "PollDashboardHeader",
   mixins: [UserHelperVue],
-  props: ["hasSidebar"],
+  props: ["hasSidebar", "pollTitle"],
   data() {
     return {
       appTitle: "Pollar",
@@ -46,11 +46,7 @@ export default {
     };
   },
   methods: {},
-  computed: {
-    pollTitle() {
-      return "Poll de teste";
-    },
-  },
+  computed: {},
 };
 </script>
 

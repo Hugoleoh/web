@@ -25,12 +25,12 @@
   <v-container class="dashboard">
     <v-row
       class="full-height-has-navbar justify-center"
-      :class="[{ 'align-content-center': !hasPollsCreated }]"
+      :class="[{ 'align-content-center': !hasPolls }]"
       no-gutters
     >
       <v-spacer></v-spacer>
       <v-col cols="12">
-        <div v-if="hasPollsCreated">
+        <div v-if="hasPolls">
           <v-card
             elevation="2"
             light
@@ -124,7 +124,8 @@ export default {
       this.$router.push("/poll/create");
     },
     selectPoll(poll) {
-      console.log(poll);
+      this.setSelectedPoll(poll);
+      this.$router.push({ name: "SelectedPoll", params: { pollId: poll.id } });
     },
     pollStatus(poll) {
       if (poll.started && poll.finished) {
@@ -150,7 +151,7 @@ export default {
     myPolls() {
       return this.userPolls;
     },
-    hasPollsCreated() {
+    hasPolls() {
       return this.myPolls.length > 0;
     },
   },

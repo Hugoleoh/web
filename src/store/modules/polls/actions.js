@@ -1,6 +1,10 @@
 import Global from "@/constants/Global.js";
 import Auth from "@/modules/Auth";
 export default {
+  setSelectedPoll(context, payload) {
+    console.log(payload);
+    context.commit("setSelectedPoll", payload);
+  },
   async createPoll(context, payload) {
     const response = await fetch(Global.getServerDomain() + `/polls/create`, {
       method: "POST",
