@@ -6,8 +6,12 @@
     <v-toolbar-title>
       <router-link to="/" style="cursor: pointer">
         <span class="text-white">
-          <v-icon dark>mdi-ballot</v-icon>
-          {{ appTitle }}
+          <v-img
+            src="../../assets/img/pollar_logo_transparent_pequeno.png"
+            lazy-src="https://picsum.photos/id/11/100/60"
+            max-width="70"
+            max-height="70"
+          ></v-img>
         </span>
       </router-link>
     </v-toolbar-title>
@@ -30,16 +34,12 @@
         v-if="isLoggedUser"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="text-white"
-            v-bind="attrs"
-            v-on="on"
-            @click="logout"
-            flat
+          <v-btn color="white" @click="logout" v-bind="attrs" v-on="on" flat
+            ><span class="mr-2">
+              <v-icon>mdi-logout</v-icon>
+              Sair</span
+            ></v-btn
           >
-            <v-icon left dark class="btn-icon">mdi-account</v-icon>
-            {{ userFirstName }}
-          </v-btn>
         </template>
         <v-list>
           <v-list-item>

@@ -2,7 +2,6 @@ import Global from "@/constants/Global.js";
 import Auth from "@/modules/Auth";
 export default {
   setSelectedPoll(context, payload) {
-    console.log(payload);
     context.commit("setSelectedPoll", payload);
   },
   async createPoll(context, payload) {
@@ -17,6 +16,7 @@ export default {
         initial_date: payload.initial_date,
         end_date: payload.end_date,
         description: payload.description,
+        privacy: payload.privacy,
         userId: Auth.getUserId(),
       }),
     });
@@ -47,5 +47,27 @@ export default {
       throw error;
     }
     context.commit("setUserPolls", responseData);
+  },
+  async fetchPollById(context, payload) {
+    const response = await fetch(
+      Global.getServerDomain() + `polls/getPoll/${payload.pollId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + Auth.getToken(),
+        },
+      }
+    );
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(
+        responseData.message || "Unable to fetch user's profile"
+      );
+      throw error;
+    }
+    console.log(responseData.id);
+    context.dispatch("setSelectedPoll", responseData);
   },
 };

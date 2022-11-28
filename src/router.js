@@ -46,6 +46,7 @@ const router = createRouter({
       children: [
         {
           path: "create",
+          name: "newPoll",
           component: () =>
             import(
               /* webpackChunkName: "about" */ "./components/organisms/NewPoll.vue"

@@ -21,6 +21,9 @@ export default {
     setSelectedPoll(poll) {
       this.setPoll(poll);
     },
+    async fetchPollById(id) {
+      await this.$store.dispatch("fetchPollById", id);
+    },
   },
 };
 </script>

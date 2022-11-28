@@ -59,6 +59,10 @@
                 v-model="v$.poll.description"
                 hint="Insira uma descrição"
               ></v-textarea>
+              <v-checkbox
+                v-model="poll.privacy"
+                label="Eleição Privada"
+              ></v-checkbox>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
@@ -110,6 +114,7 @@ export default {
         description: "",
         initial_date: "",
         end_date: "",
+        privacy: null,
       },
       isLoading: false,
       error: null,
