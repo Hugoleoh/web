@@ -8,4 +8,7 @@ export default {
   setSelectedPoll(state, payload) {
     state.selectedPoll = payload;
   },
+  setSharingURL(state, payload) {
+    state.selectedPoll.sharing_url = payload;
+  },
 };

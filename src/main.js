@@ -17,6 +17,17 @@ app.config.globalProperties.$filters = {
       return moment(String(value)).format("DD/MM/YYYY hh:mm");
     }
   },
+  extendedDate(value) {
+    if (value) {
+      return new Intl.DateTimeFormat("pt-BR", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      }).format(new Date(value));
+    }
+  },
 };
 
 app.mount("#app");

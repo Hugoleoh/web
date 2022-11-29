@@ -60,6 +60,14 @@ const router = createRouter({
               /* webpackChunkName: "about" */ "./components/organisms/ViewPoll.vue"
             ),
         },
+        {
+          path: "ballots/:pollId",
+          name: "pollBallots",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/BallotOverview.vue"
+            ),
+        },
       ],
       meta: { authRequired: true },
     },

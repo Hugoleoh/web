@@ -24,6 +24,9 @@ export default {
     async fetchPollById(id) {
       await this.$store.dispatch("fetchPollById", id);
     },
+    async generateSharingURL(id) {
+      await this.$store.dispatch("generatePollURL", id);
+    },
   },
 };
 </script>

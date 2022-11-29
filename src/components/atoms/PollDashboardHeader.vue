@@ -11,7 +11,6 @@
         <span class="text-white">
           <v-img
             src="../../assets/img/pollar_logo_transparent_pequeno.png"
-            lazy-src="https://picsum.photos/id/11/100/60"
             max-width="70"
             max-height="70"
           ></v-img>
@@ -19,7 +18,7 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn color="white"
+    <v-btn color="white" @click="logout"
       ><span class="mr-2">
         <v-icon>mdi-logout</v-icon>
         Sair</span
@@ -38,53 +37,15 @@
     <v-divider></v-divider>
     <v-list v-model="tab">
       <v-list-item
-        prepend-icon="mdi-home"
-        title="Visão geral"
-        value="overview"
-      ></v-list-item>
-
-      <v-list-item
-        prepend-icon="mdi-cog"
-        title="Configurações"
-        value="settings"
-      ></v-list-item>
-
-      <v-list-item
-        prepend-icon="mdi-ballot"
-        title="Cédulas"
-        value="ballots"
-      ></v-list-item>
-
-      <v-list-item
-        prepend-icon="mdi-account-group"
-        title="Votantes"
-        value="voters"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="mdi-rocket-launch"
-        title="Iniciar Votação"
-        value="launch"
+        v-for="(item, i) in items"
+        :key="i"
+        :title="item.title"
+        :prepend-icon="item.prepend_icon"
+        :value="item.value"
+        @click="changeTab(item.routeName)"
       ></v-list-item>
     </v-list>
   </v-navigation-drawer>
-
-  <!-- <v-toolbar class="nav-bar" app>
-    <span class="hidden-sm-and-up">
-      <v-toolbar-side-icon @click="sidebar = !sidebar"> </v-toolbar-side-icon>
-    </span>
-    <v-toolbar-title>
-      <router-link to="/" style="cursor: pointer">
-        <span class="text-white">
-          <v-icon dark>mdi-ballot</v-icon>
-          {{ appTitle }}
-        </span>
-      </router-link>
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-xs-only">
-      <h4>{{ pollTitle }}</h4>
-    </v-toolbar-items>
-  </v-toolbar> -->
 </template>
 
 <script>
@@ -92,35 +53,57 @@ import UserHelperVue from "@/mixins/UserHelper.vue";
 export default {
   name: "PollDashboardHeader",
   mixins: [UserHelperVue],
-  props: ["hasSidebar", "pollTitle"],
+  props: ["poll"],
   data() {
     return {
-      appTitle: "Pollar",
-      sidebar: false,
       drawer: true,
       group: null,
       tab: "",
       items: [
         {
-          title: "Foo",
-          value: "foo",
+          prepend_icon: "mdi-home",
+          title: "Visão geral",
+          routeName: "SelectedPoll",
+          value: "overview",
         },
         {
-          title: "Bar",
-          value: "bar",
+          prepend_icon: "mdi-cog",
+          title: "Configurações",
+          routeName: "/settings",
+          value: "settings",
         },
         {
-          title: "Fizz",
-          value: "fizz",
+          prepend_icon: "mdi-ballot",
+          title: "Cédulas",
+          routeName: "pollBallots",
+          value: "ballots",
         },
         {
-          title: "Buzz",
-          value: "buzz",
+          prepend_icon: "mdi-account-group",
+          title: "Votantes",
+          routeName: "/voters",
+          value: "voters",
+        },
+        {
+          prepend_icon: "mdi-rocket-launch",
+          title: "Iniciar Votação",
+          routeName: "/launch",
+          value: "launch",
         },
       ],
     };
   },
-  methods: {},
+  methods: {
+    logout() {
+      this.fetchLogout();
+    },
+    changeTab(routeName) {
+      this.$router.push({
+        name: routeName,
+        params: { pollId: this.poll.id },
+      });
+    },
+  },
   computed: {
     userFullName() {
       return this.loggedUser.first_name + " " + this.loggedUser.last_name;

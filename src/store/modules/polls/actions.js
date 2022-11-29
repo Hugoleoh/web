@@ -30,6 +30,7 @@ export default {
     }
     context.commit("setUserNewPoll", responseData);
   },
+
   async fetchUserPolls(context) {
     const response = await fetch(Global.getServerDomain() + "/polls/all", {
       method: "GET",
@@ -48,9 +49,10 @@ export default {
     }
     context.commit("setUserPolls", responseData);
   },
+
   async fetchPollById(context, payload) {
     const response = await fetch(
-      Global.getServerDomain() + `polls/getPoll/${payload.pollId}`,
+      Global.getServerDomain() + `/polls/getPoll/${payload}`,
       {
         method: "GET",
         headers: {
@@ -67,7 +69,28 @@ export default {
       );
       throw error;
     }
-    console.log(responseData.id);
-    context.dispatch("setSelectedPoll", responseData);
+    context.dispatch("setSelectedPoll", responseData.polls);
+  },
+
+  async generatePollURL(context, payload) {
+    const response = await fetch(
+      Global.getServerDomain() + `/polls/generate/url/${payload}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + Auth.getToken(),
+        },
+      }
+    );
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(
+        responseData.message || "Unable to fetch user's profile"
+      );
+      throw error;
+    }
+    context.commit("setSharingURL", responseData.url);
   },
 };

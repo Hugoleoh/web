@@ -1,14 +1,10 @@
 <template>
   <v-toolbar class="nav-bar" app>
-    <span class="hidden-sm-and-up">
-      <v-toolbar-side-icon @click="sidebar = !sidebar"> </v-toolbar-side-icon>
-    </span>
     <v-toolbar-title>
       <router-link to="/" style="cursor: pointer">
         <span class="text-white">
           <v-img
             src="../../assets/img/pollar_logo_transparent_pequeno.png"
-            lazy-src="https://picsum.photos/id/11/100/60"
             max-width="70"
             max-height="70"
           ></v-img>
@@ -27,32 +23,12 @@
         <v-icon :class="item.iconClass" left dark>{{ item.icon }}</v-icon>
         {{ item.title }}
       </v-btn>
-      <v-menu
-        transition="slide-y-transition"
-        bottom
-        offset-y
-        v-if="isLoggedUser"
+      <v-btn v-if="isLoggedUser" color="white" @click="logout" flat
+        ><span class="mr-2">
+          <v-icon>mdi-logout</v-icon>
+          Sair</span
+        ></v-btn
       >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="white" @click="logout" v-bind="attrs" v-on="on" flat
-            ><span class="mr-2">
-              <v-icon>mdi-logout</v-icon>
-              Sair</span
-            ></v-btn
-          >
-        </template>
-        <v-list>
-          <v-list-item>
-            <v-list-item-title>Meu Perfil</v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>Sair</v-list-item-title>
-            <v-list-item-action>
-              <v-btn flat @click="logout"></v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
-      </v-menu>
     </v-toolbar-items>
   </v-toolbar>
 </template>
