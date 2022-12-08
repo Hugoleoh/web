@@ -11,6 +11,7 @@ export default {
   methods: {
     ...mapActions({
       setPoll: "setSelectedPoll",
+      setShowModal: "changeShowModal",
     }),
     async createPoll(poll) {
       await this.$store.dispatch("createPoll", poll);

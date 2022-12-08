@@ -4,6 +4,9 @@ export default {
   setSelectedPoll(context, payload) {
     context.commit("setSelectedPoll", payload);
   },
+  changeShowModal(context, payload) {
+    context.commit("setShowModal", payload);
+  },
   async createPoll(context, payload) {
     const response = await fetch(Global.getServerDomain() + `/polls/create`, {
       method: "POST",

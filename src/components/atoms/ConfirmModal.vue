@@ -1,5 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" persistent activator="parent" class="form-modal">
+  <v-dialog
+    v-model="dialog"
+    persistent
+    activator="parent"
+    class="form-modal"
+    transition="dialog-bottom-transition"
+  >
     <v-card>
       <v-card-title class="nav-bar">
         <slot name="card-title"></slot>
@@ -12,11 +18,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red" variant="text" @click="dialog = false">
-          Fechar
-        </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="save">
-          Salvar
+        <v-btn color="red" variant="text" @click="dialog = false"> Não </v-btn>
+        <v-btn color="blue-darken-1" variant="text" @click="confirm">
+          Sim
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -32,8 +36,8 @@ export default {
     };
   },
   methods: {
-    save() {
-      this.$emit("clickSave");
+    confirm() {
+      this.$emit("clickConfirm");
       this.dialog = false;
     },
   },
@@ -42,6 +46,6 @@ export default {
 
 <style scoped>
 .form-modal {
-  max-width: 1000px;
+  max-width: 500px;
 }
 </style>

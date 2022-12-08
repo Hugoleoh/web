@@ -4,11 +4,7 @@ import getters from "./getters.js";
 
 export default {
   state() {
-    return {
-      userPolls: [],
-      selectedPoll: {},
-      showModal: false,
-    };
+    return {};
   },
   mutations,
   actions,
