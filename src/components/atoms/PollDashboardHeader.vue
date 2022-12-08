@@ -1,36 +1,51 @@
 <template>
-  <v-navigation-drawer v-model="sidebar" app>
-    <v-list>
-      <v-list-tile
-        v-for="item in unloggedMenuItems"
-        :key="item.title"
-        :to="item.path"
-      >
-        <v-list-tile-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>{{ item.title }}</v-list-tile-content>
-      </v-list-tile>
-    </v-list>
-  </v-navigation-drawer>
-
-  <v-toolbar class="nav-bar" app>
-    <span class="hidden-sm-and-up">
-      <v-toolbar-side-icon @click="sidebar = !sidebar"> </v-toolbar-side-icon>
-    </span>
+  <!-- <v-layout> -->
+  <v-app-bar class="nav-bar" prominent>
+    <v-app-bar-nav-icon
+      variant="text"
+      color="white"
+      @click.stop="drawer = !drawer"
+    ></v-app-bar-nav-icon>
     <v-toolbar-title>
       <router-link to="/" style="cursor: pointer">
         <span class="text-white">
-          <v-icon dark>mdi-ballot</v-icon>
-          {{ appTitle }}
+          <v-img
+            src="../../assets/img/pollar_logo_transparent_pequeno.png"
+            max-width="70"
+            max-height="70"
+          ></v-img>
         </span>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-xs-only">
-      <h4>{{ pollTitle }}</h4>
-    </v-toolbar-items>
-  </v-toolbar>
+    <v-btn color="white" @click="logout"
+      ><span class="mr-2">
+        <v-icon>mdi-logout</v-icon>
+        Sair</span
+      ></v-btn
+    >
+  </v-app-bar>
+
+  <v-navigation-drawer v-model="drawer" permanent>
+    <v-list-item nav :title="username" :subtitle="userFullName">
+      <template v-slot:prepend>
+        <v-avatar color="surface-variant"
+          ><v-icon>mdi-account</v-icon>
+        </v-avatar>
+      </template></v-list-item
+    >
+    <v-divider></v-divider>
+    <v-list v-model="tab">
+      <v-list-item
+        v-for="(item, i) in items"
+        :key="i"
+        :title="item.title"
+        :prepend-icon="item.prepend_icon"
+        :value="item.value"
+        @click="changeTab(item.routeName)"
+      ></v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -38,17 +53,69 @@ import UserHelperVue from "@/mixins/UserHelper.vue";
 export default {
   name: "PollDashboardHeader",
   mixins: [UserHelperVue],
-  props: ["hasSidebar"],
+  props: ["poll"],
   data() {
     return {
-      appTitle: "Pollar",
-      sidebar: false,
+      drawer: true,
+      group: null,
+      tab: "",
+      items: [
+        {
+          prepend_icon: "mdi-home",
+          title: "Visão geral",
+          routeName: "SelectedPoll",
+          value: "overview",
+        },
+        {
+          prepend_icon: "mdi-cog",
+          title: "Configurações",
+          routeName: "/settings",
+          value: "settings",
+        },
+        {
+          prepend_icon: "mdi-ballot",
+          title: "Cédulas",
+          routeName: "pollBallots",
+          value: "ballots",
+        },
+        {
+          prepend_icon: "mdi-account-group",
+          title: "Votantes",
+          routeName: "/voters",
+          value: "voters",
+        },
+        {
+          prepend_icon: "mdi-rocket-launch",
+          title: "Iniciar Votação",
+          routeName: "/launch",
+          value: "launch",
+        },
+      ],
     };
   },
-  methods: {},
+  methods: {
+    logout() {
+      this.fetchLogout();
+    },
+    changeTab(routeName) {
+      this.$router.push({
+        name: routeName,
+        params: { pollId: this.poll.id },
+      });
+    },
+  },
   computed: {
-    pollTitle() {
-      return "Poll de teste";
+    userFullName() {
+      return this.loggedUser.first_name + " " + this.loggedUser.last_name;
+    },
+    username() {
+      return this.loggedUser.username;
+    },
+  },
+
+  watch: {
+    group() {
+      this.drawer = false;
     },
   },
 };

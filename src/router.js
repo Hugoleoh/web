@@ -46,9 +46,26 @@ const router = createRouter({
       children: [
         {
           path: "create",
+          name: "newPoll",
           component: () =>
             import(
               /* webpackChunkName: "about" */ "./components/organisms/NewPoll.vue"
+            ),
+        },
+        {
+          path: "overview/:pollId",
+          name: "SelectedPoll",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/ViewPoll.vue"
+            ),
+        },
+        {
+          path: "ballots/:pollId",
+          name: "pollBallots",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/BallotOverview.vue"
             ),
         },
       ],

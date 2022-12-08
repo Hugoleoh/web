@@ -1,8 +1,8 @@
 export default {
-  userPolls(state) {
+  /*  userPolls(state) {
     return state.userPolls;
   },
   selectedPoll(state) {
     return state.selectedPoll;
-  },
+  }, */
 };

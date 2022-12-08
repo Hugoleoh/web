@@ -3,11 +3,11 @@
   <v-banner class="dashboard-title">
     <v-container>
       <v-row>
-        <v-col cols="col-10">
+        <v-col cols="col-10" sm="6" xl="10" lg="9" md="8">
           <h1 class="dashboard-title">Minhas votações</h1>
         </v-col>
         <v-spacer></v-spacer>
-        <v-col cols="2">
+        <v-col class="align-end" cols="2" sm="6" xl="2" lg="3" md="4">
           <v-btn
             class="grow-on-hover"
             color="success"
@@ -25,12 +25,12 @@
   <v-container class="dashboard">
     <v-row
       class="full-height-has-navbar justify-center"
-      :class="[{ 'align-content-center': !hasPollsCreated }]"
+      :class="[{ 'align-content-center': !hasPolls }]"
       no-gutters
     >
       <v-spacer></v-spacer>
       <v-col cols="12">
-        <div v-if="hasPollsCreated">
+        <div v-if="hasPolls">
           <v-card
             elevation="2"
             light
@@ -124,7 +124,8 @@ export default {
       this.$router.push("/poll/create");
     },
     selectPoll(poll) {
-      console.log(poll);
+      this.setSelectedPoll(poll);
+      this.$router.push({ name: "SelectedPoll", params: { pollId: poll.id } });
     },
     pollStatus(poll) {
       if (poll.started && poll.finished) {
@@ -150,7 +151,7 @@ export default {
     myPolls() {
       return this.userPolls;
     },
-    hasPollsCreated() {
+    hasPolls() {
       return this.myPolls.length > 0;
     },
   },
@@ -162,31 +163,6 @@ export default {
 </script>
 
 <style>
-.full-height-has-navbar {
-  height: calc(100vh - 60px - 50px);
-}
-
-.align-content-center {
-  align-content: center;
-}
-.welcome-notice {
-  align-content: center;
-  text-align: center;
-}
-.welcome-title {
-  font-weight: 500;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-family: inherit;
-  line-height: 1.2;
-}
-.welcome-subtitle {
-  font-weight: 100;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  font-family: inherit;
-  line-height: 1.2;
-}
 .dashboard {
   align-content: center;
   align-items: center;
@@ -198,27 +174,6 @@ export default {
   height: 3rem !important;
   width: 30%;
   font-size: 1rem;
-}
-.grow-animation {
-  -webkit-animation: slowGrow 2s infinite;
-  animation: slowGrow 2s infinite;
-}
-.grow-on-hover {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-}
-.grow-on-hover:hover,
-.grow-on-hover:focus,
-.grow-on-hover:active {
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05);
 }
 
 .v-banner--density-default .v-banner-actions {
