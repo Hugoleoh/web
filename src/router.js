@@ -68,6 +68,14 @@ const router = createRouter({
               /* webpackChunkName: "about" */ "./components/organisms/BallotOverview.vue"
             ),
         },
+        {
+          path: "voters/:pollId",
+          name: "pollVoters",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/PollVoters.vue"
+            ),
+        },
       ],
       meta: { authRequired: true },
     },

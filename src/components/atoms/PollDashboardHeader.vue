@@ -81,7 +81,7 @@ export default {
         {
           prepend_icon: "mdi-account-group",
           title: "Votantes",
-          routeName: "/voters",
+          routeName: "pollVoters",
           value: "voters",
         },
         {
