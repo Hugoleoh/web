@@ -82,6 +82,7 @@ export default {
       userId: null,
       token: null,
     });
+    this.$router.push("/");
   },
   autoLogout(context) {
     context.dispatch("logout");

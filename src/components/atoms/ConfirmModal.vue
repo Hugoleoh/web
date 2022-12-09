@@ -18,10 +18,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red" variant="text" @click="dialog = false"> Não </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="confirm">
-          Sim
+        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+          Não
         </v-btn>
+        <v-btn color="red" variant="text" @click="confirm"> Sim </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

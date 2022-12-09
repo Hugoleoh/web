@@ -4,6 +4,7 @@ import usersModule from "./modules/users/index.js";
 import pollsModule from "./modules/polls/index.js";
 import questionsModule from "./modules/questions/index.js";
 import optionsModule from "./modules/options/index.js";
+import votersModule from "./modules/voters/index.js";
 import authModule from "./modules/auth/index.js";
 
 const store = createStore({
@@ -12,6 +13,7 @@ const store = createStore({
     polls: pollsModule,
     questions: questionsModule,
     options: optionsModule,
+    voters: votersModule,
     auth: authModule,
   },
 });
