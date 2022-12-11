@@ -28,6 +28,9 @@ export default {
     async generateSharingURL(id) {
       await this.$store.dispatch("generatePollURL", id);
     },
+    async launchPoll(id) {
+      await this.$store.dispatch("launchPoll", id);
+    },
   },
 };
 </script>

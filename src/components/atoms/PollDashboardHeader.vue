@@ -87,7 +87,7 @@ export default {
         {
           prepend_icon: "mdi-rocket-launch",
           title: "Iniciar Votação",
-          routeName: "/launch",
+          routeName: "launchPoll",
           value: "launch",
         },
       ],

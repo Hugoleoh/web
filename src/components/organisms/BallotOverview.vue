@@ -191,8 +191,8 @@
               <v-btn
                 elevation="2"
                 color="success"
+                variant="flat"
                 class="grow-animation grow-on-hover"
-                height="50"
               >
                 <v-icon left dark>mdi-plus-box</v-icon>
                 Adicionar opção
