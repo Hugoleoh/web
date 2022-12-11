@@ -84,6 +84,48 @@ const router = createRouter({
               /* webpackChunkName: "about" */ "./components/organisms/LaunchPoll.vue"
             ),
         },
+        {
+          path: "settings/:pollId",
+          name: "pollSetttings",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/PollSettings.vue"
+            ),
+          children: [
+            {
+              path: "general",
+              name: "generalSettings",
+              component: () =>
+                import(
+                  /* webpackChunkName: "about" */ "./components/molecules/GeneralSettings.vue"
+                ),
+            },
+            {
+              path: "dates",
+              name: "datesSettings",
+              component: () =>
+                import(
+                  /* webpackChunkName: "about" */ "./components/molecules/DatesSettings.vue"
+                ),
+            },
+            {
+              path: "duplicate",
+              name: "duplicatePoll",
+              component: () =>
+                import(
+                  /* webpackChunkName: "about" */ "./components/molecules/DuplicatePoll.vue"
+                ),
+            },
+            {
+              path: "delete",
+              name: "deletePoll",
+              component: () =>
+                import(
+                  /* webpackChunkName: "about" */ "./components/molecules/DeletePoll.vue"
+                ),
+            },
+          ],
+        },
       ],
       meta: { authRequired: true },
     },

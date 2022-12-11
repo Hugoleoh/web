@@ -54,15 +54,17 @@
               ></v-text-field>
               <v-textarea
                 name="description"
-                :error-messages="descriptionErrors"
                 label="Descrição"
                 v-model="v$.poll.description"
                 hint="Insira uma descrição"
               ></v-textarea>
-              <v-checkbox
+              <v-switch
                 v-model="poll.privacy"
+                hide-details
+                color="#283e79"
+                inset
                 label="Eleição Privada"
-              ></v-checkbox>
+              ></v-switch>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>

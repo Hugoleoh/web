@@ -69,7 +69,7 @@ export default {
         {
           prepend_icon: "mdi-cog",
           title: "Configurações",
-          routeName: "/settings",
+          routeName: "pollSetttings",
           value: "settings",
         },
         {
