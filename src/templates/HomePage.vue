@@ -6,14 +6,23 @@
         <v-col cols="10">
           <v-row class="landing-title" align="center" justify="center">
             <v-col cols="12" md="6" xl="8">
-              <h1 class="display-2 font-weight-bold mb-4 text-white big-title">
-                Pollar
-              </h1>
-              <h1 class="font-weight-light text-white">
+              <v-img
+                src="../assets/img/pollar_logo_transparent_pequeno.png"
+                max-width="250"
+                max-height="250"
+              ></v-img>
+              <h1 class="font-weight-light text-white align-logo">
                 Criei suas próprias votações<br />
                 de forma <b>gratuita</b> e <b>segura</b>
               </h1>
-              <v-btn rounded outlined large dark @click="toLogin" class="mt-5">
+              <v-btn
+                rounded
+                outlined
+                large
+                dark
+                @click="toLogin"
+                class="mt-5 align-logo"
+              >
                 Comece agora
                 <v-icon class="ml-2">mdi-arrow-right</v-icon>
               </v-btn>
@@ -107,6 +116,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.align-logo {
+  margin-left: 2rem;
+}
 .big-title {
   font-size: 42px;
 }

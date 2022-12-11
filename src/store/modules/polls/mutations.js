@@ -27,4 +27,7 @@ export default {
   setStartedPoll(state) {
     state.selectedPoll.started = true;
   },
+  removePoll(state) {
+    state.selectedPoll = {};
+  },
 };
