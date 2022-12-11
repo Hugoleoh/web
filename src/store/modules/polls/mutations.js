@@ -24,4 +24,7 @@ export default {
   setShowModal(state, payload) {
     state.showModal = payload;
   },
+  setStartedPoll(state) {
+    state.selectedPoll.started = true;
+  },
 };

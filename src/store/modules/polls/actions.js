@@ -96,4 +96,26 @@ export default {
     }
     context.commit("setSharingURL", responseData.url);
   },
+
+  async launchPoll(context, payload) {
+    const response = await fetch(
+      Global.getServerDomain() + `/polls/start/${payload}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + Auth.getToken(),
+        },
+      }
+    );
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(
+        responseData.message || "Unable to fetch user's profile"
+      );
+      throw error;
+    }
+    context.commit("setStartedPoll");
+  },
 };

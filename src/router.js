@@ -76,6 +76,14 @@ const router = createRouter({
               /* webpackChunkName: "about" */ "./components/organisms/PollVoters.vue"
             ),
         },
+        {
+          path: "launch/:pollId",
+          name: "launchPoll",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/LaunchPoll.vue"
+            ),
+        },
       ],
       meta: { authRequired: true },
     },
