@@ -48,7 +48,7 @@
                       <h3>{{ poll.title }}</h3>
                     </v-col>
                     <v-col>
-                      <v-chip :color="statusColor(poll)">
+                      <v-chip :color="statusChipColor(poll)">
                         <span>{{ pollStatus(poll) }}</span>
                       </v-chip>
                     </v-col>
@@ -136,7 +136,7 @@ export default {
         return "Construindo";
       }
     },
-    statusColor(poll) {
+    statusChipColor(poll) {
       const status = this.pollStatus(poll);
       if (status === "Completada") {
         return "success";
