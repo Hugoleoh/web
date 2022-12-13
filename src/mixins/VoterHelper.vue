@@ -5,6 +5,7 @@ export default {
   computed: {
     ...mapGetters({
       selectedPollVoters: "selectedPollVoters",
+      voterInfo: "voterInfo",
     }),
   },
   methods: {
@@ -19,6 +20,9 @@ export default {
     },
     async fetchPollVoters(id) {
       await this.$store.dispatch("fetchPollVoters", id);
+    },
+    async verifyVoterInfo(voter) {
+      this.$store.dispatch("setVoterInfo", voter);
     },
   },
 };

@@ -108,7 +108,7 @@
             </h2>
           </v-card-title>
           <v-card-text class="side-card-text">
-            <h3>0</h3>
+            <h3>{{ votersCount }}</h3>
             <span class="card-text"> Votantes </span>
           </v-card-text>
         </v-card>
@@ -142,10 +142,11 @@
 <script>
 import UserHelperVue from "@/mixins/UserHelper.vue";
 import PollHelperVue from "@/mixins/PollHelper.vue";
+import VoterHelperVue from "@/mixins/VoterHelper.vue";
 import Global from "@/constants/Global";
 export default {
   name: "ViewPoll",
-  mixins: [PollHelperVue, UserHelperVue],
+  mixins: [PollHelperVue, UserHelperVue, VoterHelperVue],
 
   data() {
     return {
@@ -177,6 +178,9 @@ export default {
       }
       return privacy;
     },
+    votersCount() {
+      return this.selectedPollVoters?.length ?? 0;
+    },
   },
   methods: {
     copyText() {
@@ -189,6 +193,7 @@ export default {
     },
   },
   created() {
+    this.fetchPollVoters(this.selectedPoll.id);
     setTimeout(() => {
       this.sharing_url = this.selectedPoll.sharing_url
         ? Global.getFrontDomain() + "/" + this.selectedPoll.sharing_url

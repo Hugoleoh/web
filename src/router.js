@@ -40,6 +40,39 @@ const router = createRouter({
       meta: { authRequired: true },
     },
     {
+      path: "/:sharing_url",
+      name: "votingScreen",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./templates/VotingScreen.vue"),
+      meta: { authRequired: false },
+      children: [
+        {
+          path: "voter",
+          name: "voterIdentify",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/VoterIdentify.vue"
+            ),
+        },
+        {
+          path: "ballot",
+          name: "votingBallot",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/VotingBallot.vue"
+            ),
+        },
+        {
+          path: "success",
+          name: "votingSuccess",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/VotingSuccess.vue"
+            ),
+        },
+      ],
+    },
+    {
       path: "/poll",
       component: () =>
         import(/* webpackChunkName: "about" */ "./templates/PollDashboard.vue"),
@@ -140,6 +173,10 @@ router.beforeEach(function (to, from, next) {
     next("/dashboard");
   } else if (to.fullPath === "/poll") {
     next("/poll/create");
+  } else if (to.name === "pollSetttings") {
+    next({ name: "generalSettings", params: to.params });
+  } else if (to.name === "votingScreen") {
+    next({ name: "voterIdentify", params: to.params });
   } else {
     next();
   }

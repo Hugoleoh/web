@@ -8,4 +8,7 @@ export default {
   setSelectedPollVoters(state, payload) {
     state.selectedPollVoters = payload.voters;
   },
+  setVoterInfo(state, payload) {
+    state.voterInfo = payload;
+  },
 };

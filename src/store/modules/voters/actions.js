@@ -71,4 +71,7 @@ export default {
     }
     context.commit("removePollVoter", payload.index);
   },
+  setVoterInfo(context, payload) {
+    context.commit("setVoterInfo", payload);
+  },
 };
