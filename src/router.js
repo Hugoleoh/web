@@ -118,6 +118,22 @@ const router = createRouter({
             ),
         },
         {
+          path: "close/:pollId",
+          name: "closePoll",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/ClosePoll.vue"
+            ),
+        },
+        {
+          path: "results/:pollId",
+          name: "resultsView",
+          component: () =>
+            import(
+              /* webpackChunkName: "about" */ "./components/organisms/ResultsView.vue"
+            ),
+        },
+        {
           path: "settings/:pollId",
           name: "pollSetttings",
           component: () =>

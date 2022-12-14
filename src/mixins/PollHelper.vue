@@ -43,6 +43,9 @@ export default {
     async deletePoll(id) {
       await this.$store.dispatch("deletePoll", id);
     },
+    async closePoll(id) {
+      await this.$store.dispatch("closePoll", id);
+    },
     async duplicatePoll(poll) {
       let copy = { ...poll };
       copy.title = poll.title + " (CÓPIA)";

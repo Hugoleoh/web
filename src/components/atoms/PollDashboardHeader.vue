@@ -84,12 +84,6 @@ export default {
           routeName: "pollVoters",
           value: "voters",
         },
-        {
-          prepend_icon: "mdi-rocket-launch",
-          title: "Iniciar Votação",
-          routeName: "launchPoll",
-          value: "launch",
-        },
       ],
     };
   },
@@ -117,6 +111,31 @@ export default {
     group() {
       this.drawer = false;
     },
+  },
+  mounted() {
+    if (this.poll.started === true) {
+      this.items.push({
+        prepend_icon: "mdi-chart-donut",
+        title: "Resultados",
+        routeName: "resultsView",
+        value: "results",
+      });
+      if (this.poll.finished === false) {
+        this.items.push({
+          prepend_icon: "mdi-flag-checkered",
+          title: "Finalizar Votação",
+          routeName: "closePoll",
+          value: "close",
+        });
+      }
+    } else {
+      this.items.push({
+        prepend_icon: "mdi-rocket-launch",
+        title: "Iniciar Votação",
+        routeName: "launchPoll",
+        value: "launch",
+      });
+    }
   },
 };
 </script>

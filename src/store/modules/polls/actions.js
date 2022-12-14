@@ -219,6 +219,28 @@ export default {
     context.commit("setStartedPoll");
   },
 
+  async closePoll(context, payload) {
+    const response = await fetch(
+      Global.getServerDomain() + `/polls/finish/${payload}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + Auth.getToken(),
+        },
+      }
+    );
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(
+        responseData.message || "Unable to fetch user's profile"
+      );
+      throw error;
+    }
+    context.commit("setFinishedPoll");
+  },
+
   async saveBallot(context, payload) {
     const response = await fetch(Global.getServerDomain() + `/votes/addVote`, {
       method: "POST",
