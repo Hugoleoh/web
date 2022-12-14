@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isCreatePage">
-      <PollDashboardHeader :poll="getSelectedPoll" />
+      <PollDashboardHeader :poll="getSelectedPoll" v-if="loaded" />
       <v-banner class="dashboard-banner" sticky no-gutters>
         <v-container>
           <v-row>
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       pollStatus: "",
+      loaded: false,
     };
   },
   computed: {
@@ -56,6 +57,7 @@ export default {
   async created() {
     await this.fetchLoggedUser();
     await this.fetchPollById(this.$route.params.pollId);
+    this.loaded = true;
   },
   mounted() {
     if (this.selectedPoll.started && this.selectedPoll.finished) {

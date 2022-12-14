@@ -39,6 +39,22 @@
               </v-card-text>
             </v-card>
           </v-col>
+          <v-col cols="12" v-if="selectedPoll.description">
+            <v-card elevation="1" light tag="section">
+              <v-card-title>
+                <v-layout align-center justify-space-between>
+                  <span>
+                    <v-icon>mdi-card-text-outline</v-icon>
+                    Descrição
+                  </span>
+                </v-layout>
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <p class="card-text">{{ selectedPoll.description }}</p>
+              </v-card-text>
+            </v-card>
+          </v-col>
           <v-col cols="12">
             <v-card elevation="1" light tag="section">
               <v-card-title>
@@ -136,6 +152,17 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      color="white"
+      :timeout="timeout"
+      rounded="pill"
+    >
+      <p>
+        <v-icon>mdi-information</v-icon> O link foi copiado para a área de
+        transferência.
+      </p>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -151,6 +178,8 @@ export default {
   data() {
     return {
       sharing_url: "",
+      snackbar: false,
+      timeout: 2000,
     };
   },
   computed: {
@@ -185,6 +214,7 @@ export default {
   methods: {
     copyText() {
       navigator.clipboard.writeText(this.sharing_url);
+      this.snackbar = true;
     },
     async generateURL() {
       await this.generateSharingURL(this.selectedPoll.id);
