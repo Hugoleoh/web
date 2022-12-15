@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  app:
+    container_name: pollar-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - PORT=8080
+      - CHOKIDAR_USEPOLLING=true
+    restart: always
+    ports:
+      - "8080:8080"
