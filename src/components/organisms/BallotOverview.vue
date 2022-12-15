@@ -1,4 +1,37 @@
 <template>
+  <v-banner class="dashboard-banner" no-gutters>
+    <v-container>
+      <v-row>
+        <v-col cols="col-10" sm="6" xl="10" lg="9" md="8">
+          <h2 class="poll-title-text">
+            <v-icon>mdi-ballot</v-icon>
+            Cédulas
+          </h2>
+        </v-col>
+        <v-col class="align-end" cols="2" sm="6" xl="2" lg="3" md="4">
+          <v-btn
+            class="grow-animation grow-on-hover mr-5"
+            color="success"
+            elevation="2"
+            large
+          >
+            <v-icon left dark>mdi-plus-box</v-icon>
+            Nova Questão
+            <form-modal @clickSave="createNewQuestion">
+              <template v-slot:card-title>
+                <span class="text-white">Nova Questão</span>
+                <v-divider></v-divider>
+              </template>
+
+              <template v-slot:card-text>
+                <new-question @changeForm="updateQuestionModel"></new-question>
+              </template>
+            </form-modal>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-banner>
   <v-container>
     <v-row
       class="full-height-has-navbar justify-center"
@@ -8,29 +41,7 @@
       <v-col cols="12" class="question-card">
         <div v-if="hasQuestions">
           <v-row class="center-content">
-            <v-col cols="12">
-              <v-btn
-                class="grow-animation grow-on-hover mt-4"
-                color="success"
-                elevation="2"
-                large
-              >
-                <v-icon left dark>mdi-plus-box</v-icon>
-                Nova Questão
-                <form-modal @clickSave="createNewQuestion">
-                  <template v-slot:card-title>
-                    <span class="text-white">Nova Questão</span>
-                    <v-divider></v-divider>
-                  </template>
-
-                  <template v-slot:card-text>
-                    <new-question
-                      @changeForm="updateQuestionModel"
-                    ></new-question>
-                  </template>
-                </form-modal>
-              </v-btn>
-            </v-col>
+            <v-col cols="12"> </v-col>
           </v-row>
           <v-card
             elevation="2"

@@ -27,6 +27,18 @@ export default {
         userId: this.loggedUserId,
       });
     },
+    async editUser(user) {
+      await this.$store.dispatch("editUser", {
+        userId: this.loggedUserId,
+        ...user,
+      });
+    },
+    async changePassword(password) {
+      await this.$store.dispatch("changePassword", {
+        userId: this.loggedUserId,
+        ...password,
+      });
+    },
   },
 };
 </script>
