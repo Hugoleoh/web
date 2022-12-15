@@ -61,7 +61,7 @@ export default {
       option: {
         name: "",
         description: "",
-        type: "",
+        type: "Padrão",
         questionId: this.question.id,
       },
       isLoading: false,
@@ -94,6 +94,7 @@ export default {
   mounted() {
     if (this.method === "edit") {
       this.option = this.optionToEdit;
+      this.option.type = "Padrão";
     }
   },
 };

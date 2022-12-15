@@ -59,7 +59,7 @@ export default {
       question: {
         name: "",
         description: "",
-        type: "",
+        type: "Questão de múltipla escolha",
       },
       isLoading: false,
       error: null,
@@ -91,6 +91,7 @@ export default {
   mounted() {
     if (this.method === "edit") {
       this.question = this.questionToEdit;
+      this.question.type = "Questão de múltipla escolha";
     }
   },
 };
