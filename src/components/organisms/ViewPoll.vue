@@ -117,6 +117,25 @@
         </v-row>
       </v-col>
       <v-col cols="4">
+        <v-card
+          color="#24a61f"
+          theme="dark"
+          class="mx-auto mb-4"
+          width="400"
+          v-if="selectedPoll.started"
+        >
+          <v-card-title>
+            <h2>
+              <v-icon> mdi-check-circle </v-icon>
+            </h2>
+          </v-card-title>
+          <v-card-text class="side-card-text">
+            <h3>{{ participation.percentage }}%</h3>
+            <span class="card-text">
+              Participação ({{ participation.absolute }} votantes)</span
+            >
+          </v-card-text>
+        </v-card>
         <v-card color="#283e79" theme="dark" class="mx-auto mb-4" width="400">
           <v-card-title>
             <h2>
@@ -170,6 +189,7 @@
 import UserHelperVue from "@/mixins/UserHelper.vue";
 import PollHelperVue from "@/mixins/PollHelper.vue";
 import VoterHelperVue from "@/mixins/VoterHelper.vue";
+
 import Global from "@/constants/Global";
 export default {
   name: "ViewPoll",
@@ -182,6 +202,7 @@ export default {
       timeout: 2000,
     };
   },
+
   computed: {
     questionsCount() {
       return this.selectedPoll.questions?.length;
@@ -209,6 +230,17 @@ export default {
     },
     votersCount() {
       return this.selectedPollVoters?.length ?? 0;
+    },
+    participation() {
+      let voted = 0;
+      this.selectedPollVoters.forEach((voter) => {
+        voted += voter.has_voted ? 1 : 0;
+      });
+      const percentage = Math.ceil((voted / this.votersCount) * 100);
+      return {
+        percentage: percentage,
+        absolute: voted,
+      };
     },
   },
   methods: {

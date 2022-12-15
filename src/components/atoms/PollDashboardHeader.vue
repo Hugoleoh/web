@@ -18,16 +18,43 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn color="white" @click="logout"
-      ><span class="mr-2">
-        <v-icon>mdi-logout</v-icon>
-        Sair</span
-      ></v-btn
-    >
+    <v-toolbar-items class="hidden-xs-only">
+      <v-menu location="bottom" v-if="isLoggedUser">
+        <template v-slot:activator="{ props }">
+          <v-btn v-bind="props" class="text-white">
+            <v-icon color="white">mdi-account</v-icon>
+            <span>{{ username }}</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item class="clickable">
+            <v-btn color="white" @click="userEditPage" flat
+              ><span class="mr-2">
+                <v-icon>mdi-card-account-details</v-icon>
+                Conta</span
+              ></v-btn
+            >
+          </v-list-item>
+          <v-list-item class="clickable">
+            <v-btn color="white" @click="logout" flat
+              ><span class="mr-2">
+                <v-icon>mdi-logout</v-icon>
+                Sair</span
+              ></v-btn
+            >
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-toolbar-items>
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" permanent>
-    <v-list-item nav :title="username" :subtitle="userFullName">
+    <v-list-item
+      nav
+      :title="username"
+      :subtitle="userFullName"
+      @click="userEditPage"
+    >
       <template v-slot:prepend>
         <v-avatar color="surface-variant"
           ><v-icon>mdi-account</v-icon>
@@ -95,6 +122,12 @@ export default {
       this.$router.push({
         name: routeName,
         params: { pollId: this.poll.id },
+      });
+    },
+    userEditPage() {
+      this.$router.push({
+        name: "editUser",
+        params: { userId: this.loggedUser.id },
       });
     },
   },

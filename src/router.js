@@ -40,6 +40,15 @@ const router = createRouter({
       meta: { authRequired: true },
     },
     {
+      path: "/user/:userId/edit",
+      name: "editUser",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./components/organisms/EditUser.vue"
+        ),
+      meta: { authRequired: true },
+    },
+    {
       path: "/:sharing_url",
       name: "votingScreen",
       component: () =>
