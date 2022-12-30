@@ -6,7 +6,7 @@ Passo 1 - Clonagem do repositório com o comando "git clone https://github.com/H
 
 COM DOCKER
 
-Passo 2 - Tendo o docker instalado na máquina (https://docs.docker.com/get-docker/), rodar o comando "docker compose up", no linux "sudo docker compose up", no diretório do projeto. O docker iniciará a execução da sistema na porta 8000. Para acessar o front utilizar o endereço "localhost:8000"
+Passo 2 - Tendo o docker instalado na máquina (https://docs.docker.com/get-docker/), rodar o comando "docker compose up", no linux "sudo docker compose up", no diretório do projeto. O docker iniciará a execução da sistema na porta 8080. Para acessar o front utilizar o endereço "http://localhost:8080/"
 
 SEM DOCKER
 
@@ -14,7 +14,7 @@ Passo 2 - Sem o docker será necessário ter o npm e o node instalados na máqui
 
 Passo 3 - Após a instalação do node e npm, rodar comando "npm install" no diretório do projeto web, para configuração inicial do ambiente
 
-Passo 4 - Rodar o comando "npm run serve" que iniciará a execução da sistema na porta 8000. Para acessar o front utilizar o endereço "localhost:8000"
+Passo 4 - Rodar o comando "npm run serve" que iniciará a execução da sistema na porta 8000. Para acessar o front utilizar o endereço "http://localhost:8080/"
 
 Obs.: Comandos úteis
 
